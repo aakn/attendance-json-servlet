@@ -42,6 +42,11 @@ public class pesitattendance extends HttpServlet {
 			jsonObj.put("usn",ip.rollno);
 			jsonObj.put("semester",ip.semester);
 			jsonObj.put("section",ip.section);
+			jsonObj.put("subject",new JSONArray(ip.subjList));
+			jsonObj.put("percent",new JSONArray(ip.percentList));
+			jsonObj.put("attn",new JSONArray(ip.attnList));
+			jsonObj.put("total",new JSONArray(ip.totalList));
+			
 
 			out.println(jsonObj.toString());
 			/*
@@ -142,6 +147,10 @@ class Ipomo
 	static String attn[]=new String[20];
 	static String total[]=new String[20];
 	static String percent[]=new String[20];
+	static ArrayList<String> subjList = new ArrayList<String>();
+	static ArrayList<String> attnList = new ArrayList<String>();
+	static ArrayList<String> totalList = new ArrayList<String>();
+	static ArrayList<String> percentList = new ArrayList<String>();
 	static String line;
 	static String college;
 	static String name;
@@ -187,6 +196,36 @@ class Ipomo
 
 	}
 
+	public static void awesomeParseList(String data) throws IOException {
+
+		try {
+			int firstIndex, lastIndex;
+			firstIndex = data.indexOf('[');
+			lastIndex = data.lastIndexOf(']');
+			data = data.substring(++firstIndex,lastIndex);
+			firstIndex = data.indexOf('[');
+			lastIndex = data.lastIndexOf(']');
+			data = data.substring(++firstIndex,lastIndex);
+			System.out.println("Ali's data : " + data);
+			String a[] = data.split("\\],\\[");
+			int i;
+			for( i = 0; i<a.length;i++) {
+				a[i] = a[i].replaceAll("\"", "");
+				System.out.println(a[i]);
+				String t[] = a[i].split(",");
+				int k = 0;
+				subjList.add(t[k++]);
+				totalList.add(t[k++]);
+				attnList.add(t[k++]);
+				percentList.add(t[k++]);
+			}
+			ctr = i;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	
 	public static void getattn(String usn)
 	{
@@ -221,7 +260,7 @@ class Ipomo
 					wr.close();
 					rd.close();
 					//JSONParse(line,out);
-					awesomeParse(line);
+					awesomeParseList(line);
 					//return parse(line);
 				}
 				if(line.contains("var nicename"))
