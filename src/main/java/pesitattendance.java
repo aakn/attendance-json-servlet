@@ -42,12 +42,19 @@ public class pesitattendance extends HttpServlet {
 			jsonObj.put("usn",ip.rollno);
 			jsonObj.put("semester",ip.semester);
 			jsonObj.put("section",ip.section);
+			/*
 			jsonObj.put("subject",new JSONArray(ip.subjList));
 			jsonObj.put("percent",new JSONArray(ip.percentList));
 			jsonObj.put("attn",new JSONArray(ip.attnList));
 			jsonObj.put("total",new JSONArray(ip.totalList));
-			
-
+			*/
+			for (int i=0;i<ip.subjList.size();i++) {
+				JSONObject subjJSON = new JSONObject();
+				subjJSON.put("percent",ip.percentList.get(i));
+				subjJSON.put("attn",ip.attnList.get(i));
+				subjJSON.put("total",ip.totalList.get(i));
+				jsonObj.put(ip.subjList.get(i),subjJSON);
+			}
 			out.println(jsonObj.toString());
 			/*
 			DocumentBuilderFactory documentBuilderFactory = 
