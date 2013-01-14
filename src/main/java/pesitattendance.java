@@ -51,11 +51,11 @@ public class pesitattendance extends HttpServlet {
 			for (int i=0;i<ip.subjList.size();i++) {
 				JSONObject subjJSON = new JSONObject();
 				subjJSON.put("percent",ip.percentList.get(i));
-				subjJSON.put("attn",ip.attnList.get(i));
+				subjJSON.put("attended",ip.attnList.get(i));
 				subjJSON.put("total",ip.totalList.get(i));
 				jsonObj.put(ip.subjList.get(i),subjJSON);
 			}
-			out.println(jsonObj.toString());
+			out.println(jsonObj.toString(2));
 			/*
 			DocumentBuilderFactory documentBuilderFactory = 
 					DocumentBuilderFactory.newInstance();
