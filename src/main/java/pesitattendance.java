@@ -42,12 +42,7 @@ public class pesitattendance extends HttpServlet {
 			jsonObj.put("usn",ip.rollno);
 			jsonObj.put("semester",ip.semester);
 			jsonObj.put("section",ip.section);
-			/*
-			jsonObj.put("subject",new JSONArray(ip.subjList));
-			jsonObj.put("percent",new JSONArray(ip.percentList));
-			jsonObj.put("attn",new JSONArray(ip.attnList));
-			jsonObj.put("total",new JSONArray(ip.totalList));
-			*/
+			
 			for (int i=0;i<ip.subjList.size();i++) {
 				JSONObject subjJSON = new JSONObject();
 				subjJSON.put("percent",ip.percentList.get(i));
@@ -55,89 +50,16 @@ public class pesitattendance extends HttpServlet {
 				subjJSON.put("total",ip.totalList.get(i));
 				jsonObj.put(ip.subjList.get(i),subjJSON);
 			}
-			out.println(jsonObj.toString(2));
-			/*
-			DocumentBuilderFactory documentBuilderFactory = 
-					DocumentBuilderFactory.newInstance();
-			DocumentBuilder documentBuilder = 
-					documentBuilderFactory.newDocumentBuilder();
-			Document document = documentBuilder.newDocument();
-			Element rootElement = document.createElement(root);
-			document.appendChild(rootElement);
-
-			Element em = document.createElement("college");
-			em.appendChild(document.createTextNode(ip.college));
-			rootElement.appendChild(em);
-
-			em = document.createElement("name");
-			em.appendChild(document.createTextNode(ip.name));
-			rootElement.appendChild(em);
-
-			em = document.createElement("course");
-			em.appendChild(document.createTextNode(ip.course));
-			rootElement.appendChild(em);
-
-			em = document.createElement("usn");
-			em.appendChild(document.createTextNode(ip.rollno));
-			rootElement.appendChild(em);
-
-			em = document.createElement("semester");
-			em.appendChild(document.createTextNode(ip.semester));
-			rootElement.appendChild(em);
-
-			em = document.createElement("section");
-			em.appendChild(document.createTextNode(ip.section));
-			rootElement.appendChild(em);
-
-
-			for(int i=0;i<ip.ctr;i++)
-			{
-				//out.println(ip.subj[i]+"-"+ip.attn[i]+"-"+ip.total[i]+"-"+ip.percent[i]);
-				//out.println("<br>");
-				em = document.createElement(ip.subj[i]);
-				//em.appendChild(document.createTextNode(ip.section));
-				rootElement.appendChild(em);
-				Element em2 = document.createElement("attended");
-				em2.appendChild(document.createTextNode(ip.attn[i]));
-				em.appendChild(em2);
-
-				Element em3 = document.createElement("total");
-				em3.appendChild(document.createTextNode(ip.total[i]));
-				em.appendChild(em3);
-
-				Element em4 = document.createElement("percentage");
-				em4.appendChild(document.createTextNode(ip.percent[i]));
-				em.appendChild(em4);
-			}
-
-			TransformerFactory transformerFactory = 
-					TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource source = new DOMSource(document);
-			StreamResult result =  new StreamResult(out);
-			//transformer.transform(source, result);
-			//String json = XMLConvert(document.toString());
-			//out.write(json);
-			*/
+			out.println(jsonObj.toString(4));
+			
 
 		}catch(Exception e)
 		{
 			System.out.println("some gudbad happened.. "+e);
 		}
 
-	}/*
-	public String XMLtoJSON(String xml) {
-	    JSONObject jsonObj = XML.toJSONObject(xml);
-	    String json = jsonObj.toString();
-	    return json;
-	}*/
-	public String XMLConvert(String xmlString) {
-		XMLSerializer xmlSerializer = new XMLSerializer(); 
-		JSON json = xmlSerializer.read( xmlString );  
-		//System.out.println( json.toString(2) );
-		return json.toString(2);
-
 	}
+
 	public static void main(String[] args) throws Exception{
 		Server server = new Server(Integer.valueOf(System.getenv("PORT")));
 		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -168,41 +90,6 @@ class Ipomo
 
 	static int ctr;
 	
-	public static void JSONParse(String data,PrintWriter out) {
-		String newData = data.substring(10,data.length());
-		out.println(newData);
-	}
-
-	public static void awesomeParse(String data) throws IOException {
-
-		try {
-			int firstIndex, lastIndex;
-			firstIndex = data.indexOf('[');
-			lastIndex = data.lastIndexOf(']');
-			data = data.substring(++firstIndex,lastIndex);
-			firstIndex = data.indexOf('[');
-			lastIndex = data.lastIndexOf(']');
-			data = data.substring(++firstIndex,lastIndex);
-			System.out.println("Ali's data : " + data);
-			String a[] = data.split("\\],\\[");
-			int i;
-			for( i = 0; i<a.length;i++) {
-				a[i] = a[i].replaceAll("\"", "");
-				System.out.println(a[i]);
-				String t[] = a[i].split(",");
-				int k = 0;
-				subj[i] = t[k++];
-				total[i] = t[k++];
-				attn[i] = t[k++];
-				percent[i] = t[k++];
-			}
-			ctr = i;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
 	public static void awesomeParseList(String data) throws IOException {
 
 		try {
@@ -309,55 +196,9 @@ class Ipomo
 			}
 			//send stuff ends
 
-
-
-
 		} catch (Exception e) {
 		}
 
 	}
-	
-
-	
-	public static void parse(String data) throws IOException
-	{
-		int firstbox=data.indexOf('[');
-		data=data.substring(++firstbox);
-		int lastbox=data.lastIndexOf(']');
-		data=data.substring(0,lastbox);
-		/*System.out.println(data);
-		data=data.replace("[","");
-		data=data.replace("]","");
-		System.out.println(data); */
-		StringTokenizer token=new StringTokenizer(data,"],[");
-		//System.out.println(data);
-		ctr=0;
-		while(token.hasMoreTokens())
-		{
-			subj[ctr]=token.nextToken();
-			subj[ctr]=subj[ctr].substring(1,subj[ctr].length()-1);
-			total[ctr]=token.nextToken();
-			total[ctr]=total[ctr].substring(1,total[ctr].length()-1);
-			attn[ctr]=token.nextToken();
-			attn[ctr]=attn[ctr].substring(1,attn[ctr].length()-1);
-			percent[ctr]=token.nextToken();
-			percent[ctr]=percent[ctr].substring(1,percent[ctr].length()-1);
-			//System.out.println(percent[ctr]);
-			ctr++;
-		}
-	}
-	
-
-	/*public static void main(String args[]) throws IOException
-{
-getattn(args[0]);
-for(int i=0;i<ctr;i++)
-{
-System.out.println(subj[i]+"-"+attn[i]+"-"+total[i]+"-"+percent[i]);
-}
-
-//System.out.println(getattn("1pe09cs061"));
-}
-	 */
 
 }
