@@ -11,6 +11,9 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
 import javax.xml.transform.stream.*;
 import org.w3c.dom.*;
+import net.sf.json.JSON;
+import net.sf.json.xml.XMLSerializer;
+
 public class pesitattendance extends HttpServlet {
 
 	@Override
@@ -18,7 +21,7 @@ public class pesitattendance extends HttpServlet {
 			throws ServletException, IOException {
 		//  resp.getWriter().print("Hello from Java!\n");
 		try{
-			resp.setContentType("text/xml");
+			resp.setContentType("text/json");
 			PrintWriter out=resp.getWriter();
 			String usn=req.getParameter("usn");
 			Date d=new Date();
@@ -88,14 +91,28 @@ public class pesitattendance extends HttpServlet {
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(document);
 			StreamResult result =  new StreamResult(out);
-			transformer.transform(source, result);
+			//transformer.transform(source, result);
+			String json = XMLConvert(document.toString());
+			out.write(json);
+
 		}catch(Exception e)
 		{
 			System.out.println("some gudbad happened.. "+e);
 		}
 
-	}
+	}/*
+	public String XMLtoJSON(String xml) {
+	    JSONObject jsonObj = XML.toJSONObject(xml);
+	    String json = jsonObj.toString();
+	    return json;
+	}*/
+	public String XMLConvert(String xmlString) {
+		XMLSerializer xmlSerializer = new XMLSerializer(); 
+		JSON json = xmlSerializer.read( xmlString );  
+		//System.out.println( json.toString(2) );
+		return json.toString(2);
 
+	}
 	public static void main(String[] args) throws Exception{
 		Server server = new Server(Integer.valueOf(System.getenv("PORT")));
 		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
