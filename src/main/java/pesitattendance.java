@@ -30,7 +30,7 @@ public class pesitattendance extends HttpServlet {
 			//String usn="1pe09cs059";
 			//String cpass=req.getParameter("cpass");
 			Ipomo ip=new Ipomo();
-			ip.getattn(usn, out);
+			ip.getattn(usn);
 			//out.println("TEST="+ip.subj[0]);
 			//start tree build
 			String root="student";
@@ -157,10 +157,8 @@ class Ipomo
 		out.println(newData);
 	}
 
-	public static void awesomeParse(String data,PrintWriter out) throws IOException {
+	public static void awesomeParse(String data) throws IOException {
 
-		//storeResultInCache(data,name,semester,section);
-		out.println(data);
 		try {
 			int firstIndex, lastIndex;
 			firstIndex = data.indexOf('[');
@@ -190,7 +188,7 @@ class Ipomo
 	}
 
 	
-	public static void getattn(String usn, PrintWriter out)
+	public static void getattn(String usn)
 	{
 		try {
 			CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
@@ -222,8 +220,8 @@ class Ipomo
 					//System.out.println("INHERE");
 					wr.close();
 					rd.close();
-					JSONParse(line,out);
-					//awesomeParse(line,out);
+					//JSONParse(line,out);
+					awesomeParse(line);
 					//return parse(line);
 				}
 				if(line.contains("var nicename"))
