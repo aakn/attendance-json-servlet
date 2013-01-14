@@ -18,7 +18,7 @@ public class pesitattendance extends HttpServlet {
 			throws ServletException, IOException {
 		//  resp.getWriter().print("Hello from Java!\n");
 		try{
-			resp.setContentType("text/html");
+			resp.setContentType("text/xml");
 			PrintWriter out=resp.getWriter();
 			String usn=req.getParameter("usn");
 			Date d=new Date();
@@ -181,7 +181,7 @@ class Ipomo
 
 			while ((line = rd.readLine()) != null) {
 				// Process line...
-				out.println(line);
+				//out.println(line);
 				if(line.contains("temp ="))
 				{
 					//System.out.println("INHERE");
