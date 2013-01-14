@@ -21,7 +21,7 @@ public class pesitattendance extends HttpServlet {
 			throws ServletException, IOException {
 		//  resp.getWriter().print("Hello from Java!\n");
 		try{
-			resp.setContentType("text/xml");
+			resp.setContentType("text/html");
 			PrintWriter out=resp.getWriter();
 			String usn=req.getParameter("usn");
 			Date d=new Date();
@@ -139,10 +139,10 @@ class Ipomo
 
 	static int ctr;
 	
-	public static void awesomeParse(String data) throws IOException {
+	public static void awesomeParse(String data,PrintWriter out) throws IOException {
 
 		//storeResultInCache(data,name,semester,section);
-
+		out.println(data);
 		try {
 			int firstIndex, lastIndex;
 			firstIndex = data.indexOf('[');
@@ -204,7 +204,7 @@ class Ipomo
 					//System.out.println("INHERE");
 					wr.close();
 					rd.close();
-					awesomeParse(line);
+					awesomeParse(line,out);
 					//return parse(line);
 				}
 				if(line.contains("var nicename"))
