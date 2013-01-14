@@ -11,6 +11,7 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
 import javax.xml.transform.stream.*;
 import org.w3c.dom.*;
+import org.json.*;
 import net.sf.json.JSON;
 import net.sf.json.xml.XMLSerializer;
 
@@ -33,6 +34,17 @@ public class pesitattendance extends HttpServlet {
 			//out.println("TEST="+ip.subj[0]);
 			//start tree build
 			String root="student";
+
+			JSONObject jsonObj = new JSONObject();
+			jsonObj.put("college",ip.college);
+			jsonObj.put("name",ip.name);
+			jsonObj.put("course",ip.course);
+			jsonObj.put("usn",ip.rollno);
+			jsonObj.put("semester",ip.semester);
+			jsonObj.put("section",ip.section);
+
+			out.println(jsonObj.toString());
+			/*
 			DocumentBuilderFactory documentBuilderFactory = 
 					DocumentBuilderFactory.newInstance();
 			DocumentBuilder documentBuilder = 
@@ -94,6 +106,7 @@ public class pesitattendance extends HttpServlet {
 			//transformer.transform(source, result);
 			//String json = XMLConvert(document.toString());
 			//out.write(json);
+			*/
 
 		}catch(Exception e)
 		{
