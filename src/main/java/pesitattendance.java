@@ -43,13 +43,17 @@ public class pesitattendance extends HttpServlet {
 			jsonObj.put("semester",ip.semester);
 			jsonObj.put("section",ip.section);
 			
+			JSONObject attendanceJSON = new JSONObject();
 			for (int i=0;i<ip.subjList.size();i++) {
 				JSONObject subjJSON = new JSONObject();
-				subjJSON.put("percent",ip.percentList.get(i));
+				
 				subjJSON.put("attended",ip.attnList.get(i));
 				subjJSON.put("total",ip.totalList.get(i));
-				jsonObj.put(ip.subjList.get(i),subjJSON);
+				subjJSON.put("percent",ip.percentList.get(i));
+
+				attendanceJSON.put(ip.subjList.get(i),subjJSON);
 			}
+			jsonObj.put("attendance",attendanceJSON);
 			out.println(jsonObj.toString(4));
 			
 
