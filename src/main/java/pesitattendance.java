@@ -204,7 +204,7 @@ class ipomo2
 		}
 	}
 	*/
-	public void awesomeParse(String data) throws IOException {
+	public static void awesomeParse(String data) throws IOException {
 
 		//storeResultInCache(data,name,semester,section);
 
@@ -269,7 +269,7 @@ class ipomo2
 					//System.out.println("INHERE");
 					wr.close();
 					rd.close();
-					awesomeparse(line);
+					awesomeParse(line);
 					//return parse(line);
 				}
 				if(line.contains("var nicename"))
