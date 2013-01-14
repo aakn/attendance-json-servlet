@@ -18,15 +18,15 @@ public class pesitattendance extends HttpServlet {
 			throws ServletException, IOException {
 		//  resp.getWriter().print("Hello from Java!\n");
 		try{
-			resp.setContentType("text/xml");
+			resp.setContentType("text/html");
 			PrintWriter out=resp.getWriter();
 			String usn=req.getParameter("usn");
 			Date d=new Date();
 			System.out.println("Request for USN "+usn+" at time "+d);
 			//String usn="1pe09cs059";
 			//String cpass=req.getParameter("cpass");
-			ipomo2 ip=new ipomo2();
-			ip.getattn(usn);
+			Ipomo ip=new Ipomo();
+			ip.getattn(usn, out);
 			//out.println("TEST="+ip.subj[0]);
 			//start tree build
 			String root="student";
@@ -106,7 +106,7 @@ public class pesitattendance extends HttpServlet {
 		server.join();   
 	}
 }
-class ipomo2
+class Ipomo
 {
 	static String subj[]=new String[20];
 	static String attn[]=new String[20];
@@ -121,89 +121,7 @@ class ipomo2
 	static String section;
 
 	static int ctr;
-	/*
-	public void getattn(String usn) {
-		try {
-			String data = URLEncoder.encode("userid", "UTF-8") + "=" + URLEncoder.encode(usn, "UTF-8");
-			data += "&" + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode("003", "UTF-8");
-			// Send data
-			URL url = new URL("http://ipomo.in/IpomoStudentLoginServer/IpomoStudentServlet");
-			URLConnection conn = url.openConnection();
-			conn.setDoOutput(true);
-			OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-			wr.write(data);
-			wr.flush();
-			// Get the response
-			BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			String line;
-			//System.out.println("*******************************");
-			//send stuff
-			url = new URL("http://ipomo.in/IpomoStudentLoginServer/studentInfo.jsp");
-			conn = url.openConnection();
-			conn.setDoOutput(true);
-			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-			try{
-				while ((line = rd.readLine()) != null) {
-					// Process line...
-					if(line.contains("temp =")) {
-						System.out.println("INHERE");
-						System.out.println("LINE="+line);
-						wr.close();
-						rd.close();
-						//parse(line);
-						awesomeParse(line);
-						break;
-						//return parse(line);
-					}
-					if(line.contains("var nicename"))
-					{
-						line=line.substring(line.indexOf('"')+1,line.lastIndexOf('"'));
-						System.out.println("LINE="+line);
-						college=line;
-
-					}
-					if(line.contains("var name"))
-					{
-						line=line.substring(line.indexOf('"')+1,line.lastIndexOf('"'));
-						System.out.println("LINE="+line);
-						name=line;
-					}
-					if(line.contains("var course"))
-					{
-						line=line.substring(line.indexOf('"')+1,line.lastIndexOf('"'));
-						System.out.println("LINE="+line);
-						course=line;
-					}
-					if(line.contains("var rollno"))
-					{
-						line=line.substring(line.indexOf('"')+1,line.lastIndexOf('"'));
-						System.out.println("LINE="+line);
-						rollno=line;
-					}
-					if(line.contains("var semester"))
-					{
-						line=line.substring(line.indexOf('"')+1,line.lastIndexOf('"'));
-						System.out.println("LINE="+line);
-						semester=line;
-					}
-					if(line.contains("var section"))
-					{
-						line=line.substring(line.indexOf('"')+1,line.lastIndexOf('"'));
-						System.out.println("LINE="+line);
-						section=line;
-					} 
-				}
-			} catch (Exception e) {
-				System.out.println("In here");
-				e.printStackTrace();
-			}
-			//send stuff ends
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	*/
+	
 	public static void awesomeParse(String data) throws IOException {
 
 		//storeResultInCache(data,name,semester,section);
@@ -237,7 +155,7 @@ class ipomo2
 	}
 
 	
-	public static void getattn(String usn)
+	public static void getattn(String usn, PrintWriter out)
 	{
 		try {
 			CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
@@ -263,7 +181,7 @@ class ipomo2
 
 			while ((line = rd.readLine()) != null) {
 				// Process line...
-
+				out.println(line);
 				if(line.contains("temp ="))
 				{
 					//System.out.println("INHERE");
