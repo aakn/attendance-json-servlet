@@ -91,7 +91,7 @@ public class pesitattendance extends HttpServlet {
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(document);
 			StreamResult result =  new StreamResult(out);
-			transformer.transform(source, result);
+			//transformer.transform(source, result);
 			//String json = XMLConvert(document.toString());
 			//out.write(json);
 
@@ -139,6 +139,11 @@ class Ipomo
 
 	static int ctr;
 	
+	public static void JSONParse(String data,PrintWriter out) {
+		String newData = data.substring(10,data.length());
+		out.println(newData);
+	}
+
 	public static void awesomeParse(String data,PrintWriter out) throws IOException {
 
 		//storeResultInCache(data,name,semester,section);
@@ -204,7 +209,8 @@ class Ipomo
 					//System.out.println("INHERE");
 					wr.close();
 					rd.close();
-					awesomeParse(line,out);
+					JSONParse(line,out);
+					//awesomeParse(line,out);
 					//return parse(line);
 				}
 				if(line.contains("var nicename"))
