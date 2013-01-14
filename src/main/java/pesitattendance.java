@@ -121,6 +121,7 @@ class ipomo2
 	static String section;
 
 	static int ctr;
+	/*
 	public void getattn(String usn) {
 		try {
 			String data = URLEncoder.encode("userid", "UTF-8") + "=" + URLEncoder.encode(usn, "UTF-8");
@@ -202,6 +203,7 @@ class ipomo2
 			e.printStackTrace();
 		}
 	}
+	*/
 	public void awesomeParse(String data) throws IOException {
 
 		//storeResultInCache(data,name,semester,section);
@@ -234,7 +236,7 @@ class ipomo2
 
 	}
 
-	/*
+	
 	public static void getattn(String usn)
 	{
 		try {
@@ -267,7 +269,7 @@ class ipomo2
 					//System.out.println("INHERE");
 					wr.close();
 					rd.close();
-					parse(line);
+					awesomeparse(line);
 					//return parse(line);
 				}
 				if(line.contains("var nicename"))
@@ -316,9 +318,9 @@ class ipomo2
 		}
 
 	}
-	*/
+	
 
-	/*
+	
 	public static void parse(String data) throws IOException
 	{
 		int firstbox=data.indexOf('[');
@@ -326,9 +328,9 @@ class ipomo2
 		int lastbox=data.lastIndexOf(']');
 		data=data.substring(0,lastbox);
 		/*System.out.println(data);
-data=data.replace("[","");
-data=data.replace("]","");
-System.out.println(data); //* /
+		data=data.replace("[","");
+		data=data.replace("]","");
+		System.out.println(data); */
 		StringTokenizer token=new StringTokenizer(data,"],[");
 		//System.out.println(data);
 		ctr=0;
@@ -346,7 +348,7 @@ System.out.println(data); //* /
 			ctr++;
 		}
 	}
-	*/
+	
 
 	/*public static void main(String args[]) throws IOException
 {
