@@ -21,7 +21,7 @@ public class pesitattendance extends HttpServlet {
 			throws ServletException, IOException {
 		//  resp.getWriter().print("Hello from Java!\n");
 		try{
-			resp.setContentType("text/json");
+			resp.setContentType("text/xml");
 			PrintWriter out=resp.getWriter();
 			String usn=req.getParameter("usn");
 			Date d=new Date();
@@ -91,9 +91,9 @@ public class pesitattendance extends HttpServlet {
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(document);
 			StreamResult result =  new StreamResult(out);
-			//transformer.transform(source, result);
-			String json = XMLConvert(document.toString());
-			out.write(json);
+			transformer.transform(source, result);
+			//String json = XMLConvert(document.toString());
+			//out.write(json);
 
 		}catch(Exception e)
 		{
