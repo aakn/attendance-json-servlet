@@ -54,7 +54,7 @@ public class pesitattendance extends HttpServlet {
 				attendanceJSON.put(ip.subjList.get(i),subjJSON);
 			}
 			jsonObj.put("attendance",attendanceJSON);
-			out.println(jsonObj.toString(4));
+			out.println("parseJSON("+jsonObj.toString(4)+")");
 			
 
 		}catch(Exception e)
