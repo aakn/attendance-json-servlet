@@ -22,7 +22,7 @@ public class pesitattendance extends HttpServlet {
 			throws ServletException, IOException {
 		//  resp.getWriter().print("Hello from Java!\n");
 		try{
-			resp.setContentType("text/html");
+			resp.setContentType("text/json");
 			PrintWriter out=resp.getWriter();
 			String usn=req.getParameter("usn");
 			Date d=new Date();
