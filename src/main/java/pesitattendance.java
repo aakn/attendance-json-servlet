@@ -30,6 +30,7 @@ public class pesitattendance extends HttpServlet {
 			try {
 				callback = req.getParameter("callback");
 			} catch (Exception e) {
+				e.printStackTrace();
 				callback = "";
 			}
 			Date d=new Date();
