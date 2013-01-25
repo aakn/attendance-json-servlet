@@ -25,7 +25,7 @@ public class pesitattendance extends HttpServlet {
 			resp.setContentType("text/json");
 			PrintWriter out=resp.getWriter();
 			String usn=req.getParameter("usn");
-
+			/*
 			String callback = "";
 			try {
 				callback = req.getParameter("callback");
@@ -33,6 +33,7 @@ public class pesitattendance extends HttpServlet {
 				e.printStackTrace();
 				callback = "";
 			}
+			*/
 			Date d=new Date();
 			System.out.println("Request for USN "+usn+" at time "+d);
 			//String usn="1pe09cs059";
@@ -62,9 +63,9 @@ public class pesitattendance extends HttpServlet {
 				attendanceJSON.put(ip.subjList.get(i),subjJSON);
 			}
 			jsonObj.put("attendance",attendanceJSON);
-			if(callback.length() > 1) {
-				out.println(callback+"("+jsonObj.toString(4)+")");
-			} else
+			// if(callback.length() > 1) {
+			// 	out.println(callback+"("+jsonObj.toString(4)+")");
+			// } else
 				out.println(jsonObj.toString(4));
 
 		}catch(Exception e)
